@@ -1,16 +1,16 @@
 """
-In this module we benchmark python's multithreading and multiprocessing. We are doing I/O operations  
-and Compute Intesive Operations to see which method of concurrency or parallism performs better in 
+In this module we benchmark python's multithreading and multiprocessing. We are doing I/O operations
+and Compute Intesive Operations to see which method of concurrency or parallism performs better in
 which scenario. The concurrent.futures module is used to perform the multithreading and multiprocessing
 functionality.
 
 """
 
-from time import time, sleep
+from time import time
 import requests
 import concurrent.futures
 import uuid
-from os import listdir
+import os
 from PIL import Image
 
 # URLs for images to be downloaded
@@ -117,7 +117,7 @@ def cpu_intensive_process(iteration):
     """
     This mehtod performs the the cpu extensive operation. It increments the count for each number in range
     of 9^9.
-    :param iteration: 
+    :param iteration:
     :return: None
     """
 
@@ -154,8 +154,8 @@ def download_img_via_multiprocessing(img_urls):
 @calculate_exe_time
 def io_operations_without_concurrency(file_names):
     """
-    This method calls the process_img method for each file which performs simple image processing 
-    on the img file and then moves the files to processed folder. This is done in a regular fashion 
+    This method calls the process_img method for each file which performs simple image processing
+    on the img file and then moves the files to processed folder. This is done in a regular fashion
     without any concurrency.
     :param file_names: list containing names of the img files to process
     :return: None
@@ -168,7 +168,7 @@ def io_operations_without_concurrency(file_names):
 @calculate_exe_time
 def io_operations_via_threading(file_names):
     """
-    This method calls the process_img method for each file which performs simple image processing 
+    This method calls the process_img method for each file which performs simple image processing
     on the img file and then moves the files to processed folder. This is done in a concurrent fashion
     using the multithreading feature in concurrent.futures module.
     :param file_names: list containing names of the img files to process
@@ -182,8 +182,8 @@ def io_operations_via_threading(file_names):
 @calculate_exe_time
 def io_operations_via_multiprocessing(file_names):
     """
-    This method calls the process_img method for each file which performs simple image processing 
-    on the img file and then moves the files to processed folder. This is done in a concurrent fashion using the multiprocessing feature in 
+    This method calls the process_img method for each file which performs simple image processing
+    on the img file and then moves the files to processed folder. This is done in a concurrent fashion using the multiprocessing feature in
     concurrent.futures module.
     :param file_names: list containing names of the img files to process
     :return: None
@@ -245,7 +245,7 @@ if __name__ == "__main__":
     # download_img_via_multiprocessing(img_urls)
 
     # get list of all img file names in imgs folder
-    file_names = listdir('.\\imgs')
+    file_names = os.listdir(os.path.join(os.getcwd(), "imgs"))
 
     #######################################
     ###     I/O Extentisve Tasks        ###
